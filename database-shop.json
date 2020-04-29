@@ -1,0 +1,20 @@
+{
+  "databaseProducts": [
+    {
+      "productName": "Hat",
+      "productPrice": 100,
+      "productImage": "https://placeimg.com/640/480/any"
+    },
+    {
+      "productName": "Shirt",
+      "productPrice": 200,
+      "productImage": "https://placeimg.com/640/480/any"
+    },
+    {
+      "productName": "Pants",
+      "productPrice": 300,
+      "productImage": "https://placeimg.com/640/480/any"
+    }
+  ],
+  "databaseBasket": []
+}
