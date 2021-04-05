@@ -33,5 +33,3 @@ Du ska i denna uppgift bygga en front-end för din e-handelsida och anropa ditt 
 din code review på och tre saker som du tycker är bra samt en sak som kan förbättras.
 
 Inlämning sker via Github och Learnpoint. Ladda upp ditt projekt på Github. Gå sedan in på Learnpoint och under innehåll finns det en inlämningsuppgift där du ska posta din länk till ditt repo. Bifoga även med ditt dokument gällande code review om du satsar på Väl Godkänt.
-
-**Inlämning senast**: 30/4 23:59 
