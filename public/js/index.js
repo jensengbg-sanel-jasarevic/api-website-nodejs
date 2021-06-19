@@ -1,10 +1,11 @@
+const localURL = 'http://localhost:7000';
+const cloudURL = 'https://eshop-node.herokuapp.com'
+
 const addButton = document.querySelector('.buttonSubmit');
 const productShop = document.querySelector('.products-shop');
 
-const baseUrl = 'http://localhost:7000';
-
 // Load all products when opening site (GET)
-fetch(baseUrl + '/products', { method: 'GET' })
+fetch(cloudURL + '/products', { method: 'GET' })
   .then(response => {
     return response.json();
   })
@@ -13,7 +14,7 @@ fetch(baseUrl + '/products', { method: 'GET' })
   });
 
 const checkBasket = () => {
-  fetch(baseUrl + '/basket', { method: 'GET' })
+  fetch(cloudURL + '/basket', { method: 'GET' })
     .then(response => {
       return response.json();
     })
@@ -70,7 +71,7 @@ const showProducts = dataProducts => {
       let price = document.querySelectorAll('.price')[i].innerHTML;
 
       const postUrl =
-        baseUrl +
+        cloudURL +
         '/basket/addproducts' +
         '?name=' +
         name +

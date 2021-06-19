@@ -1,8 +1,9 @@
+const localURL = 'http://localhost:7000';
+const cloudURL = 'https://eshop-node.herokuapp.com'
+
 const showBasket = document.querySelector('.show-basket');
 
-const baseUrl = 'http://localhost:7000';
-
-fetch(baseUrl + '/basket', { method: 'GET' })
+fetch(cloudURL + '/basket', { method: 'GET' })
   .then(response => {
     return response.json();
   })
@@ -55,7 +56,7 @@ const basketProducts = dataBasket => {
       let productBoxErase = document.getElementById(`product${nameParam}`);
 
       const deleteUrl =
-        baseUrl +
+        cloudURL +
         '/basket/deleteproducts' +
         '?name=' +
         productTagErase +
