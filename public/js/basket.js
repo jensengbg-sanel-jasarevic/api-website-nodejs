@@ -1,9 +1,11 @@
-const localURL = 'http://localhost:7000';
-const cloudURL = 'https://eshop-node.herokuapp.com'
+// Local API server URL: http://localhost:7000
+// Cloud API server URL: https://airbean-api-server.herokuapp.com
+
+const API_URL = 'https://eshop-node.herokuapp.com'
 
 const showBasket = document.querySelector('.show-basket');
 
-fetch(cloudURL + '/basket', { method: 'GET' })
+fetch(API_URL + '/basket', { method: 'GET' })
   .then(response => {
     return response.json();
   })
@@ -56,7 +58,7 @@ const basketProducts = dataBasket => {
       let productBoxErase = document.getElementById(`product${nameParam}`);
 
       const deleteUrl =
-        cloudURL +
+        API_URL +
         '/basket/deleteproducts' +
         '?name=' +
         productTagErase +
