@@ -1,5 +1,5 @@
 // Local API server URL: http://localhost:7000
-// Cloud API server URL: https://airbean-api-server.herokuapp.com
+// Cloud API server URL: https://eshop-node.herokuapp.com
 
 const API_URL = 'https://eshop-node.herokuapp.com'
 
