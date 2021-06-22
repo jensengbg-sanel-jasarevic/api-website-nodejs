@@ -1,97 +1,78 @@
-const localURL = 'http://localhost:7000';
-const cloudURL = 'https://eshop-node.herokuapp.com'
+// Local API server URL: http://localhost:7000
+// Cloud API server URL: https://airbean-api-server.herokuapp.com
 
-const addButton = document.querySelector('.buttonSubmit');
-const productShop = document.querySelector('.products-shop');
+const API_URL = 'https://eshop-node.herokuapp.com'
 
-// Load all products when opening site (GET)
-fetch(cloudURL + '/products', { method: 'GET' })
+const showBasket = document.querySelector('.show-basket');
+
+fetch(API_URL + '/basket', { method: 'GET' })
   .then(response => {
     return response.json();
   })
   .then(data => {
-    showProducts(data);
+    basketProducts(data);
   });
 
-const checkBasket = () => {
-  fetch(cloudURL + '/basket', { method: 'GET' })
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      data.forEach(data => {
-        // Get the name of product through database then assign it to the variable 
-        let productId = data.productName;
-        // Find id of clicked button (id assigned with name of product in showProducts when button element is created) 
-        let checkButton = document.getElementById(productId);
-        checkButton.classList.remove('buttonSubmit');
-        checkButton.classList.add('buttonDisable');
-        checkButton.disabled = true;
-        checkButton.innerHTML = 'Added to basket';
-      });
-    });
-};
-
-// Get all products, after do this function with the data
-// Create elements to the HTML DOM
-const showProducts = dataProducts => {
-  for (let i = 0; i < dataProducts.length; i++) {
+const basketProducts = dataBasket => {
+  for (let i = 0; i < dataBasket.length; i++) {
+    let divTag = document.createElement('div');
     let productTag = document.createElement('p');
     let priceTag = document.createElement('p');
     let imgTag = document.createElement('img');
     let buttonTag = document.createElement('button');
 
-    productTag.setAttribute('class', 'product');
-    priceTag.setAttribute('class', 'price');
-    imgTag.setAttribute('class', 'image');
-    buttonTag.setAttribute('class', 'buttonSubmit');
-    buttonTag.setAttribute('type', 'submit');
-    buttonTag.setAttribute('id', `${dataProducts[i].productName}`);
-    buttonTag.innerHTML = 'Add product to basket';
+    buttonTag.innerHTML = 'Delete from basket';
 
-    imgTag.setAttribute('width', '200');
-    imgTag.setAttribute('height', '200');
+    divTag.setAttribute('id', `product${dataBasket[i].productName}`);
+    divTag.setAttribute('class', 'div-box');
+    productTag.setAttribute('id', dataBasket[i].productName);
+    priceTag.setAttribute('id', dataBasket[i].productPrice);
+    imgTag.setAttribute('id', dataBasket[i].productImage);
+    buttonTag.setAttribute('class', 'buttonDelete');
 
-    productTag.innerHTML = dataProducts[i].productName;
-    priceTag.innerHTML = dataProducts[i].productPrice;
-    imgTag.src = dataProducts[i].productImage;
+    imgTag.setAttribute('width', '250');
+    imgTag.setAttribute('height', '250');
+    buttonTag.style.height = '2.5rem';
+    buttonTag.style.width = '15%';
 
-    productShop.append(imgTag);
-    productShop.append(productTag);
-    productShop.append(priceTag);
-    productShop.append(buttonTag);
+    productTag.innerHTML = dataBasket[i].productName;
+    priceTag.innerHTML = dataBasket[i].productPrice;
+    imgTag.src = dataBasket[i].productImage;
 
-    buttonTag.addEventListener('click', e => {
-      addBasket(dataProducts);
+    showBasket.append(divTag);
+    divTag.appendChild(imgTag);
+    divTag.appendChild(productTag);
+    divTag.appendChild(priceTag);
+    divTag.appendChild(buttonTag);
+
+    buttonTag.addEventListener('click', e => {   
+      eraseElements(
+        dataBasket[i].productName,
+        dataBasket[i].productPrice,
+      );
     });
+    
+    const eraseElements = (nameParam, priceParam) => {
+      let productTagErase = document.getElementById(`${nameParam}`).innerHTML;
+      let priceTagErase = document.getElementById(`${priceParam}`).innerHTML;
+      let productBoxErase = document.getElementById(`product${nameParam}`);
 
-    // Add product to basket (POST)
-    const addBasket = () => {
-      let name = document.querySelectorAll('.product')[i].innerHTML;
-      let price = document.querySelectorAll('.price')[i].innerHTML;
-
-      const postUrl =
-        cloudURL +
-        '/basket/addproducts' +
+      const deleteUrl =
+        API_URL +
+        '/basket/deleteproducts' +
         '?name=' +
-        name +
+        productTagErase +
         '&price=' +
-        price;
+        priceTagErase;
 
-      fetch(postUrl, { method: 'POST' })
+      fetch(deleteUrl, { method: 'DELETE' })
         .then(response => {
           return response.json();
         })
         .then(data => {
-          console.log(data);
-          checkBasket(data);
+          alert(data.message);
         });
+      productBoxErase.remove();
     };
   }
 };
-
-// Grab the browser window object, when it has fully loaded (all HTML-tags loaded in), do following
-// Check whether basket is empty or already containing products
-window.addEventListener('load', () => {
-  checkBasket();
-});
