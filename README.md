@@ -1,7 +1,7 @@
 #### URL
 https://eshop-node.herokuapp.com/
 
-# Inlämningsuppgift 2
+# Inlämningsuppgift 2: E-handelsida front-end
 
 ## Instruktioner
 

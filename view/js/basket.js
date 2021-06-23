@@ -1,11 +1,11 @@
 // Local API server URL: http://localhost:7000
 // Cloud API server URL: https://eshop-node.herokuapp.com
 
-const API_URL = 'https://eshop-node.herokuapp.com'
+const API_URL = 'http://localhost:7000'
 
 const showBasket = document.querySelector('.show-basket');
 
-fetch(API_URL + '/basket', { method: 'GET' })
+fetch(API_URL + '/api/basket', { method: 'GET' })
   .then(response => {
     return response.json();
   })
@@ -23,11 +23,11 @@ const basketProducts = dataBasket => {
 
     buttonTag.innerHTML = 'Delete from basket';
 
-    divTag.setAttribute('id', `product${dataBasket[i].productName}`);
+    divTag.setAttribute('id', `product11123${dataBasket[i].name}`);
     divTag.setAttribute('class', 'div-box');
-    productTag.setAttribute('id', dataBasket[i].productName);
-    priceTag.setAttribute('id', dataBasket[i].productPrice);
-    imgTag.setAttribute('id', dataBasket[i].productImage);
+    productTag.setAttribute('id', dataBasket[i].name);
+    priceTag.setAttribute('id', dataBasket[i].price);
+    imgTag.setAttribute('id', dataBasket[i].image);
     buttonTag.setAttribute('class', 'buttonDelete');
 
     imgTag.setAttribute('width', '250');
@@ -35,9 +35,9 @@ const basketProducts = dataBasket => {
     buttonTag.style.height = '2.5rem';
     buttonTag.style.width = '15%';
 
-    productTag.innerHTML = dataBasket[i].productName;
-    priceTag.innerHTML = dataBasket[i].productPrice;
-    imgTag.src = dataBasket[i].productImage;
+    productTag.innerHTML = dataBasket[i].name;
+    priceTag.innerHTML = dataBasket[i].price;
+    imgTag.src = dataBasket[i].image;
 
     showBasket.append(divTag);
     divTag.appendChild(imgTag);

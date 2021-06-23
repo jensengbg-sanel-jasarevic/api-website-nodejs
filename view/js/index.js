@@ -1,29 +1,30 @@
 // Local API server URL: http://localhost:7000
 // Cloud API server URL: https://eshop-node.herokuapp.com
 
-const API_URL = 'https://eshop-node.herokuapp.com'
+const API_URL = 'http://localhost:7000'
 
 const addButton = document.querySelector('.buttonSubmit');
 const productShop = document.querySelector('.products-shop');
 
 // Load all products when opening site (GET)
-fetch(API_URL + '/products', { method: 'GET' })
+fetch(API_URL + '/api/products', { method: 'GET' })
   .then(response => {
     return response.json();
   })
   .then(data => {
+    console.log(data)
     showProducts(data);
   });
 
 const checkBasket = () => {
-  fetch(API_URL + '/basket', { method: 'GET' })
+  fetch(API_URL + '/api/basket', { method: 'GET' })
     .then(response => {
       return response.json();
     })
     .then(data => {
       data.forEach(data => {
         // Get the name of product through database then assign it to the variable 
-        let productId = data.productName;
+        let productId = data.name;
         // Find id of clicked button (id assigned with name of product in showProducts when button element is created) 
         let checkButton = document.getElementById(productId);
         checkButton.classList.remove('buttonSubmit');
@@ -48,15 +49,15 @@ const showProducts = dataProducts => {
     imgTag.setAttribute('class', 'image');
     buttonTag.setAttribute('class', 'buttonSubmit');
     buttonTag.setAttribute('type', 'submit');
-    buttonTag.setAttribute('id', `${dataProducts[i].productName}`);
+    buttonTag.setAttribute('id', `${dataProducts[i].name}`);
     buttonTag.innerHTML = 'Add product to basket';
 
     imgTag.setAttribute('width', '200');
     imgTag.setAttribute('height', '200');
 
-    productTag.innerHTML = dataProducts[i].productName;
-    priceTag.innerHTML = dataProducts[i].productPrice;
-    imgTag.src = dataProducts[i].productImage;
+    productTag.innerHTML = dataProducts[i].name;
+    priceTag.innerHTML = dataProducts[i].price;
+    imgTag.src = dataProducts[i].image;
 
     productShop.append(imgTag);
     productShop.append(productTag);
@@ -74,7 +75,7 @@ const showProducts = dataProducts => {
 
       const postUrl =
         API_URL +
-        '/basket/addproducts' +
+        '/api/basket/addproducts' +
         '?name=' +
         name +
         '&price=' +

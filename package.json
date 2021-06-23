@@ -1,15 +1,19 @@
 {
-  "name": "api",
+  "name": "eshop-api",
   "version": "1.0.0",
-  "description": "## Instruktioner",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "Sanel Jasarevic",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

@@ -1,14 +1,19 @@
 const express = require('express');
-const app = express();
-const database = require('./modules/database-module');
-const endpoints = require('./modules/api-endpoints');
+const database = require('./model/database-module');
 const port = process.env.PORT || 7000;
 
-endpoints(app);
+database.dbInit()
 
-app.use(express.static("public"));
+const productsRouter = require('./controller/route-products');
+const basketRouter = require('./controller/route-basket');
+
+const app = express();
+
+app.use(express.static("view"));
+
+app.use('/api/products', productsRouter);
+app.use('/api/basket', basketRouter);
 
 app.listen(port, () => {
-  console.log('Server running on port: ', port);
-  database.dbInit();
+  console.log('Server running on port:', port);
 });
