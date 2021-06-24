@@ -5,14 +5,6 @@ const API_URL = 'http://localhost:7000'
 
 const productsOrders = document.querySelector('.basket-products');
 
-fetch(API_URL + '/api/basket', { method: 'GET' } )
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    basketProducts(data);
-  });
-
 const basketProducts = orders => {
   for (let i = 0; i < orders.length; i++) {
     let divTag = document.createElement('div');
@@ -43,29 +35,30 @@ const basketProducts = orders => {
     divTag.appendChild(priceTag);
     divTag.appendChild(buttonTag);
 
-    buttonTag.addEventListener('click', () => { eraseElements() } );
+    buttonTag.addEventListener('click', () => { removeProduct() } );
  
-    const eraseElements = () => {
-      let priceTagErase = document.getElementById(`${orders[i].price}`).innerHTML;
-      let divTag = document.getElementById(`${orders[i].name}`);
-      let divTagID = divTag.getAttribute('id');
+      const removeProduct = () => {
+        let productName = divTag.getAttribute('id')
+        let productPrice = priceTag.getAttribute('id')
 
-      const deleteUrl =
-        API_URL +
-        '/api/basket' +
-        '?name=' +
-        divTagID +
-        '&price=' +
-        priceTagErase;
+        const deleteProduct = API_URL + '/api/basket' + '?name=' + productName + '&price=' + productPrice;
 
-      fetch(deleteUrl, { method: 'DELETE' } )
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          alert(data.message);
-        });
-      divTag.remove();
-    };
-  }
-};
+        fetch(deleteProduct, { method: 'DELETE' } )
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            document.getElementById(`${productName}`).remove();
+            alert(data.message);
+          });
+      };
+    }
+  };
+
+fetch(API_URL + '/api/basket', { method: 'GET' } )
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    basketProducts(data);
+  });

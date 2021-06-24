@@ -30,10 +30,10 @@ function getProducts() {
   return db.get('products').value();
 };
 
-function findProduct (nameParam, priceParam) {
+function findProduct (productName, productPrice) {
   const response = db
     .get('products')
-    .find({ name: nameParam, price: priceParam })
+    .find({ name: productName, price: productPrice })
     .value();
   return response;
 };
@@ -42,26 +42,26 @@ function getBasket() {
   return db.get('basket').value();
 };
 
-async function addProduct (nameParam, priceParam)  {
+async function addProduct (productName, productPrice)  {
   const response = await db
     .get('basket')
-    .push({ name: nameParam, price: priceParam, image: imageURL })
+    .push({ name: productName, price: productPrice, image: imageURL })
     .write();
   return response;
 };
 
-function findBasketProduct (nameParam, priceParam) {
+function findBasketProduct (productName, productPrice) {
   const response = db
     .get('basket')
-    .find({ name: nameParam, price: priceParam })
+    .find({ name: productName, price: productPrice })
     .value();
   return response;
 };
 
-async function removeBasketProduct (nameParam, priceParam) {
+async function removeBasketProduct (productName, productPrice) {
   const response = await db
     .get('basket')
-    .remove({ name: nameParam, price: priceParam, image: imageURL })
+    .remove({ name: productName, price: productPrice })
     .write();
   return response;
 };

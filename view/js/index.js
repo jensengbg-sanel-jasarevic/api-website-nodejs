@@ -49,6 +49,7 @@ const showProducts = products => { // In showProducts variable, an variable name
             return response.json();
           })
           .then(data => {
+            console.log(data)
             getBasketProducts(data);
           });
       };

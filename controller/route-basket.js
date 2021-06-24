@@ -4,11 +4,11 @@ const { Router } = require("express");
 const router = new Router();
 
 // POST product to basket
-router.post('/', async (request, response) => {
-    const name = request.query.name;
-    const price = parseInt (request.query.price);
+router.post('/', async (req, res) => {
+    const name = req.query.name;
+    const price = parseInt (req.query.price);
   
-    let responseMessage = {
+    let resObj = {
       success: true
     };
   
@@ -16,52 +16,43 @@ router.post('/', async (request, response) => {
     const findProduct = db.findProduct(name, price);
   
   if (findBasket) {
-    const errors = {
-      error: 'Error',
-      message: 'Product already exist in shopping basket.'
-    };
-    response.send(errors);
-  } else if (!findProduct) {
-    const errors = {
-      error: 'Error',
-      message: 'Product not existing in list of products.'
-    };
-    response.send(errors);
-  } else {
-    // Promise
-    const res = db.addProduct(name, price);
-    responseMessage.message = 'Product added to shopping basket.'
-    response.send(responseMessage);
-  }
+      resObj.message = 'Product already exist in shopping basket.'
+      res.send(resObj);
+    } else if (!findProduct) {
+      resObj.message = 'Product not existing in list of products.'
+      res.send(resObj);
+    } else {
+      db.addProduct(name, price);
+      resObj.message = 'Product added to shopping basket.'
+      res.send(resObj);
+    }
   });
   
   // GET products from basket
-  router.get('/', async (request, response) => {
+  router.get('/', async (req, res) => {
     const data = await db.getBasket();
-    response.send(data);
+    res.send(data);
   });
 
   // DELETE product from basket
-  router.delete('/', async (request, response) => {
-    const name = request.query.name;
-    const price = parseInt (request.query.price);
+  router.delete('/', async (req, res) => {
+    const name = req.query.name;
+    const price = parseInt (req.query.price);
   
-    let responseMessage = {
-      success: true
+    let resObj = {
+      success: false
     };
   
     const findBasket = db.findBasketProduct(name, price);
+
     if (!findBasket) {
-      const errors = {
-        error: 'Error',
-        message: 'Product not existing in shopping basket.'
-      };
-      response.send(errors);
+      resObj.message = 'Product not existing in shopping basket.'
+      res.send(resObj);
     } else {
-      // Promise
-      const res = db.removeBasketProduct(name, price);
-      responseMessage.message = 'Product deleted from shopping basket.'
-      response.send(responseMessage);
+      db.removeBasketProduct(name, price);
+      resObj.message = 'Product deleted from shopping basket.'
+      resObj.success = true;
+      res.send(resObj);
     }
   });
 
