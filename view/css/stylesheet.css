@@ -34,14 +34,14 @@ ul a {
     font-size: 1.2rem;
 }
   
-.products-shop {
+.products {
       display: grid;
       grid-template-columns: auto auto auto auto;
       grid-gap: 20px;
       text-align: center;
 }
 
-.products-shop p {
+.products p {
   font-size: 1.3rem;
 }
 
@@ -63,7 +63,7 @@ footer{
   padding: 1rem;
 }
 
-.buttonSubmit {
+.buttonAble {
   width: 150px;
   height: 50px;
   background-color: #5d5d5d;

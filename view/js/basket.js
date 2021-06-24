@@ -59,7 +59,7 @@ const basketProducts = dataBasket => {
 
       const deleteUrl =
         API_URL +
-        '/basket/deleteproducts' +
+        '/basket' +
         '?name=' +
         productTagErase +
         '&price=' +

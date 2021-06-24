@@ -18,16 +18,6 @@
   ],
   "basket": [
     {
-      "name": "Hat",
-      "price": 100,
-      "image": "https://placeimg.com/640/480/any"
-    },
-    {
-      "name": "Shirt",
-      "price": 200,
-      "image": "https://placeimg.com/640/480/any"
-    },
-    {
       "name": "Pants",
       "price": 300,
       "image": "https://placeimg.com/640/480/any"

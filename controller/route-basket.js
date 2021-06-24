@@ -3,8 +3,8 @@ const { Router } = require("express");
 
 const router = new Router();
 
-// Add products to database basket
-router.post('/addproducts', async (request, response) => {
+// POST product to basket
+router.post('/', async (request, response) => {
     const name = request.query.name;
     const price = parseInt (request.query.price);
   
@@ -15,7 +15,6 @@ router.post('/addproducts', async (request, response) => {
     const findBasket = db.findBasketProduct(name, price);
     const findProduct = db.findProduct(name, price);
   
-  // Conditions
   if (findBasket) {
     const errors = {
       error: 'Error',
@@ -36,13 +35,14 @@ router.post('/addproducts', async (request, response) => {
   }
   });
   
+  // GET products from basket
   router.get('/', async (request, response) => {
     const data = await db.getBasket();
     response.send(data);
   });
 
-  // Delete products from database basket
-  router.delete('/basket/deleteproducts', async (request, response) => {
+  // DELETE product from basket
+  router.delete('/basket', async (request, response) => {
     const name = request.query.name;
     const price = parseInt (request.query.price);
   
