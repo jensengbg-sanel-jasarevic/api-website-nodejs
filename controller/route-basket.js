@@ -42,7 +42,7 @@ router.post('/', async (request, response) => {
   });
 
   // DELETE product from basket
-  router.delete('/basket', async (request, response) => {
+  router.delete('/', async (request, response) => {
     const name = request.query.name;
     const price = parseInt (request.query.price);
   
@@ -59,7 +59,7 @@ router.post('/', async (request, response) => {
       response.send(errors);
     } else {
       // Promise
-      const res = db.removeProduct(name, price);
+      const res = db.removeBasketProduct(name, price);
       responseMessage.message = 'Product deleted from shopping basket.'
       response.send(responseMessage);
     }

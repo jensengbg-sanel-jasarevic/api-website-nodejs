@@ -45,7 +45,7 @@ ul a {
   font-size: 1.3rem;
 }
 
-.show-basket {
+.basket-products {
   display: grid;
   grid-template-columns: auto;
   grid-gap: 15px;

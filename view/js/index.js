@@ -4,6 +4,7 @@
 const API_URL = 'http://localhost:7000'
 
 const sectionProducts = document.querySelector('.products');
+
 // Arrow function, parameter passed in is 'products', it contains array of objects.
 const showProducts = products => { // In showProducts variable, an variable named addBasket (function) is also stored so it has access to the 'products' parameter.
   for (let i = 0; i < products.length; i++) {

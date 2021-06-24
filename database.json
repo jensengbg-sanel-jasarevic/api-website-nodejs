@@ -16,11 +16,5 @@
       "image": "https://placeimg.com/640/480/any"
     }
   ],
-  "basket": [
-    {
-      "name": "Pants",
-      "price": 300,
-      "image": "https://placeimg.com/640/480/any"
-    }
-  ]
+  "basket": []
 }

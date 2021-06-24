@@ -3,9 +3,9 @@
 
 const API_URL = 'http://localhost:7000'
 
-const showBasket = document.querySelector('.show-basket');
+const productsOrders = document.querySelector('.basket-products');
 
-fetch(API_URL + '/api/basket', { method: 'GET' })
+fetch(API_URL + '/api/basket', { method: 'GET' } )
   .then(response => {
     return response.json();
   })
@@ -13,8 +13,8 @@ fetch(API_URL + '/api/basket', { method: 'GET' })
     basketProducts(data);
   });
 
-const basketProducts = dataBasket => {
-  for (let i = 0; i < dataBasket.length; i++) {
+const basketProducts = orders => {
+  for (let i = 0; i < orders.length; i++) {
     let divTag = document.createElement('div');
     let productTag = document.createElement('p');
     let priceTag = document.createElement('p');
@@ -23,11 +23,9 @@ const basketProducts = dataBasket => {
 
     buttonTag.innerHTML = 'Delete from basket';
 
-    divTag.setAttribute('id', `product11123${dataBasket[i].name}`);
-    divTag.setAttribute('class', 'div-box');
-    productTag.setAttribute('id', dataBasket[i].name);
-    priceTag.setAttribute('id', dataBasket[i].price);
-    imgTag.setAttribute('id', dataBasket[i].image);
+    divTag.setAttribute('id', orders[i].name);
+    priceTag.setAttribute('id', orders[i].price);
+    imgTag.setAttribute('id', orders[i].image);
     buttonTag.setAttribute('class', 'buttonDelete');
 
     imgTag.setAttribute('width', '250');
@@ -35,44 +33,39 @@ const basketProducts = dataBasket => {
     buttonTag.style.height = '2.5rem';
     buttonTag.style.width = '15%';
 
-    productTag.innerHTML = dataBasket[i].name;
-    priceTag.innerHTML = dataBasket[i].price;
-    imgTag.src = dataBasket[i].image;
+    productTag.innerHTML = orders[i].name;
+    priceTag.innerHTML = orders[i].price;
+    imgTag.src = orders[i].image;
 
-    showBasket.append(divTag);
+    productsOrders.append(divTag);
     divTag.appendChild(imgTag);
     divTag.appendChild(productTag);
     divTag.appendChild(priceTag);
     divTag.appendChild(buttonTag);
 
-    buttonTag.addEventListener('click', e => {   
-      eraseElements(
-        dataBasket[i].productName,
-        dataBasket[i].productPrice,
-      );
-    });
-    
-    const eraseElements = (nameParam, priceParam) => {
-      let productTagErase = document.getElementById(`${nameParam}`).innerHTML;
-      let priceTagErase = document.getElementById(`${priceParam}`).innerHTML;
-      let productBoxErase = document.getElementById(`product${nameParam}`);
+    buttonTag.addEventListener('click', () => { eraseElements() } );
+ 
+    const eraseElements = () => {
+      let priceTagErase = document.getElementById(`${orders[i].price}`).innerHTML;
+      let divTag = document.getElementById(`${orders[i].name}`);
+      let divTagID = divTag.getAttribute('id');
 
       const deleteUrl =
         API_URL +
-        '/basket' +
+        '/api/basket' +
         '?name=' +
-        productTagErase +
+        divTagID +
         '&price=' +
         priceTagErase;
 
-      fetch(deleteUrl, { method: 'DELETE' })
+      fetch(deleteUrl, { method: 'DELETE' } )
         .then(response => {
           return response.json();
         })
         .then(data => {
           alert(data.message);
         });
-      productBoxErase.remove();
+      divTag.remove();
     };
   }
 };
