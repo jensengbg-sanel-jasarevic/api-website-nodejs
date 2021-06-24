@@ -1,6 +1,6 @@
 const lowdb = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('database-shop.json');
+const adapter = new FileSync('database.json');
 const db = lowdb(adapter);
 
 const imageURL = 'https://placeimg.com/640/480/any';

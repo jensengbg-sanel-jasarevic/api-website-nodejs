@@ -1,5 +1,5 @@
 const express = require('express');
-const database = require('./model/database-module');
+const database = require('./model/database-functions');
 const port = process.env.PORT || 7000;
 
 database.dbInit()

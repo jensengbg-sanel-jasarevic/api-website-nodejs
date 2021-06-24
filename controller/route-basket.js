@@ -1,4 +1,4 @@
-const db = require('../model/database-module');
+const db = require('../model/database-functions');
 const { Router } = require("express");
 
 const router = new Router();
